@@ -34,3 +34,24 @@ Locale translation
     If the string is translated and replaced, the replacement is double-quoted.
     
   因此单引号表示转化成ANSI-C字符，双引号则表示将字符串本地化。
+  
+  以下是一个实例，ping /etc/hosts的主机名为video-开头的主机名，检查网络状况!
+  
+  ```bash
+  #!/bin/bash
+trap "echo 'interrupted!';exit 1" SIGHUP SIGINT SIGTERM
+OLD_IFS=$IFS
+IFS=$'\n'
+for i in `awk '$0!~/^$/ && $0!~/^#/ && $2~/^video/ {print $1,$2}' /etc/hosts`
+do
+	ADDR=$(echo $i | cut -d' ' -f 1)
+	DOMAIN=$(echo $i | cut -d' ' -f 2)
+	if ping -c 2 $ADDR &>/dev/null
+	then
+		echo $DOMAIN ok!
+	else
+		echo $DOMIN dead!
+	fi
+done
+IFS=$OLD_IFS
+```
