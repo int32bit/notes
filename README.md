@@ -9,3 +9,7 @@
 ## C语言
 
 1. [swap函数陷阱](/c/swap函数陷阱.md)
+
+## hadoop
+
+1. [hive单机安装](/hadoop/hive单机安装.md)
