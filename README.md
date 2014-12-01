@@ -13,3 +13,4 @@
 ## hadoop
 
 1. [hive单机安装](/hadoop/hive单机安装.md)
+2. [构建hadoop2.5.2环境下的spark1.1.1](/hadoop/构建hadoop2.5.2环境下的spark1.1.1.md)
