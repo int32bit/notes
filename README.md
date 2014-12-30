@@ -5,6 +5,7 @@
 1. [ubuntu安装Nvidia驱动](/linux/安装nvidia驱动.md)
 2. [ubuntu终端显示中文乱码](/linux/ubuntu终端显示中文乱码.md)
 3. [bash字符串前美元符号的作用](/linux/bash字符串前美元符号的作用.md)
+4. [kvm启动虚拟机的一些参数](/linux/kvm启动虚拟机的一些参数.md)
 
 ## C语言
 
