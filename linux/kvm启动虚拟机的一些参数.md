@@ -22,10 +22,13 @@ kvm（qemu)启动虚拟机时，参数比较多，也很灵活，相对图形界
 
 启动windows7
 ```bash
-sudo kvm -m $RAM -smp $VCPUS -cpu $CPUS_MODEL -name $NAME -soundhw all -rtc base=localtime -balloon virtio -net nic,model=virtio -net tap,vnet_hdr=on,vhost=on -usb -usbdevice tablet -vga std  -drive file=$SECOND_DISK,if=virtio,index=2 -hda $ROOT_DISK 
+sudo kvm -m $RAM -smp $VCPUS -cpu $CPUS_MODEL -name $NAME -soundhw all -rtc base=localtime -balloon virtio \
+-net nic,model=virtio -net tap,vnet_hdr=on,vhost=on -usb -usbdevice tablet -vga std  -drive\
+file=$SECOND_DISK,if=virtio,index=2 -hda $ROOT_DISK 
 ```
 
 启动ubuntu-server
 ```bash
-sudo kvm -smp 2  -m 1024 -balloon virtio -net nic,model=virtio -net tap,vnet_hdr=on,vhost=on -drive file=vdb.disk,if=virtio -usb -name ubuntu14.04 ubuntu.qcow2
+sudo kvm -smp 2  -m 1024 -balloon virtio -net nic,model=virtio -net tap,vnet_hdr=on,vhost=on \
+-drive file=vdb.disk,if=virtio -usb -name ubuntu14.04 ubuntu.qcow2
 ```
