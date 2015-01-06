@@ -6,6 +6,7 @@
 2. [ubuntu终端显示中文乱码](/linux/ubuntu终端显示中文乱码.md)
 3. [bash字符串前美元符号的作用](/linux/bash字符串前美元符号的作用.md)
 4. [kvm启动虚拟机的一些参数](/linux/kvm启动虚拟机的一些参数.md)
+5. [中文版windows系统安装puppet agent问题](/llinux/windows安装puppet-agent问题.md)
 
 ## C语言
 
