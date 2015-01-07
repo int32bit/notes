@@ -22,3 +22,7 @@ gem list
 安装路径:C:\Program Files\Puppet Labs\Puppet\facter\lib\facter.
 ```
 根据实际情况修改setcode值，我是直接硬编码为"UTC+8",或者可以参照世界时区标准记法。
+
+##  certificate verify failed: [CRL is not yet valid for /CN controller
+
+这是由于agent和master clock不同步造成的，openstack中创建windows云主机时需要指os_type为windows，才能社会之RTC为localtime，否则时间会不准。
