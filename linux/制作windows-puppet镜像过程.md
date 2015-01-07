@@ -42,3 +42,10 @@ timezone默认输出中文，会出现编码错误,设置setcode 为英文字符
 ```sh
 qemu-img convert -O qcow2 origin.qcow2 new.qcow2
 ```
+
+## 上传镜像
+
+把镜像上传到glance下，记得**设置os_type = windows**否则，会出现RTC时间问题
+
+## 启动主机
+启动云主机，记得设置**os_type = windows**, 原因同上！
