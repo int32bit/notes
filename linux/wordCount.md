@@ -7,7 +7,7 @@ map[key1]=value1
 map[key2]=value2
 map=([key1]=value1 [key2]=value2)
 ```
-利用关联数组，很容易实现单词统计,源码文件[wordCount.sh](/src/wordCount.sh)]
+利用关联数组，很容易实现单词统计,源码文件[wordCount.sh](src/wordCount.sh)
 ```bash
 #!/bin/bash
 if [[ $# -lt 1 ]]
