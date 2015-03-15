@@ -9,6 +9,7 @@
 5. [中文版windows系统安装puppet agent问题](/linux/windows安装puppet-agent问题.md)
 6. [制作windows-puppet镜像过程](/linux/制作windows-puppet镜像过程.md)
 7. [使用bash关联数组统计词频](/linux/wordCount.md)
+8. [bash数组操作总结](/linux/bashArray.md)
 
 ## C语言
 
