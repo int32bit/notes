@@ -10,6 +10,7 @@
 6. [制作windows-puppet镜像过程](/linux/制作windows-puppet镜像过程.md)
 7. [使用bash关联数组统计词频](/linux/wordCount.md)
 8. [bash数组操作总结](/linux/bashArray.md)
+9. [使用moderncv创建个人简历](/linux/使用moderncv创建个人简历.md)
 
 ## C语言
 
