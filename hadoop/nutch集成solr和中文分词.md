@@ -191,6 +191,6 @@ hdfs dfs -put urls
 运行以下命令运行：
 ```sh
 cd $NUTCH_HOME/runtime/runtime/deploy/
-bin/crawl -i -D solr.server.url=http://localhost:8983/solr/ urls/ TestCrawl/  2
+bin/crawl -i -D solr.server.url=http://localhost:8983/solr/nutch urls/ TestCrawl/  2
 ```
 
