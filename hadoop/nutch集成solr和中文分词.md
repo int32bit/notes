@@ -82,7 +82,7 @@ org.apache.solr.common.SolrException:org.apache.solr.common.SolrException: copyF
 <field name="_version_" type="long" indexed="true" stored="true"/>
 ```
 ### 3. 增加中文分词
-首先从google code上下载[IKAnalyzer](http://code.google.com/p/ik-analyzer/downloads/list),下载版本为`IK Analyzer 2012FF_hf1.zip`.
+首先从google code上下载[IKAnalyzer](http://code.google.com/p/ik-analyzer/downloads/list),下载版本为`IK Analyzer 2012FF_hf1.zip`,如果被GFW， 点击[此处下载](./resources).
 解压缩文件，把IKAnalyzer2012FF_u1.jar文件复制到`$SOLR_HOME/example/solr-webapp/webapp/WEB-INF/lib`,把IKAnalyzer.cfg.xml和stopword.dic复制到`$SOLR_HOME/example/solr/nutch/conf`,与schema.xml一个目录下:
 
 ```bash
