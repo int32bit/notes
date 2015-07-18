@@ -24,3 +24,4 @@
 2. [构建hadoop2.5.2环境下的spark1.1.1](/hadoop/构建hadoop2.5.2环境下的spark1.1.1.md)
 3. [设置sbt代理](hadoop/设置sbt代理.md)
 4. [spark-streaming读取flume](hadoop/spark-streaming读取flume.md)
+5. [nutch集成solr和中文分词](hadoop/nutch集成solr和中文分词.md)

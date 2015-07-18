@@ -1,58 +1,10 @@
 # nutch集成solr和中文分词
-# Nutch 编译和使用
-## 0.终端中文乱码问题
-终端中文显示`??????`, 原因是没有设置`LC_XXXX`, 运行:
-```sh
- locale
-```
-输出
-```
-LANG=zh_CN.utf8
-LANGUAGE=en_US
-LC_CTYPE="C"
-LC_NUMERIC="C"
-LC_TIME="C"
-LC_COLLATE="C"
-LC_MONETARY="C"
-LC_MESSAGES="C"
-LC_PAPER="C"
-LC_NAME="C"
-LC_ADDRESS="C"
-LC_TELEPHONE="C"
-LC_MEASUREMENT="C"
-LC_IDENTIFICATION="C"
-LC_ALL=C
-```
-可见输出全是`LC_xxxx="C"`
-修正办法为:
-设置`LC_ALL`变量，即修改`~/.bashrc`文件，增加以下内容:
-```bash
-export LC_ALL=en_US.UTF-8
-```
-再次运行`locale`命令,输出为:
-```
-LANG=zh_CN.utf8
-LANGUAGE=en_US
-LC_CTYPE="en_US.UTF-8"
-LC_NUMERIC="en_US.UTF-8"
-LC_TIME="en_US.UTF-8"
-LC_COLLATE="en_US.UTF-8"
-LC_MONETARY="en_US.UTF-8"
-LC_MESSAGES="en_US.UTF-8"
-LC_PAPER="en_US.UTF-8"
-LC_NAME="en_US.UTF-8"
-LC_ADDRESS="en_US.UTF-8"
-LC_TELEPHONE="en_US.UTF-8"
-LC_MEASUREMENT="en_US.UTF-8"
-LC_IDENTIFICATION="en_US.UTF-8"
-LC_ALL=en_US.UTF-8
-
-```
-重新打开终端，应该就没有问题了.
 
 ## 1. 设置代理
 
-总结上次编译失败，尝试手段包括：
+如果公司不需要代理即可上网，此步骤直接省略.
+
+总结设置代理遇到的几个坑：
 
 * 强制使用系统代理,即 ant -autoproxy , 结果失败!
 * 修改 build.xml , 增加 setproxy ,设置代理,结果失败!
