@@ -1,8 +1,10 @@
 # nutch集成solr和中文分词
 
-## 1. 设置代理
+## 一、构建nutch环境
 
-如果公司不需要代理即可上网，此步骤直接省略.
+### 1. 设置代理
+
+由于nutch使用ant构建，ant调用ivy，会从maven仓库中下载依赖包，因此若公司需要代理才能上网，需要设置代理，***如果公司不需要代理即可上网，此步骤直接省略.***
 
 总结设置代理遇到的几个坑：
 
@@ -30,20 +32,56 @@
 </target>
 ```
 
-## 2. 编译构建
+### 2. 设置hadoop环境
 
-编译，由于使用了`ant`和`ivy`, 只需要使用`ant`编译即可
+***若只是构建单机模式，此步骤省略!***
 
-若需要编译分布式环境与`hadoop`集成，需先确定`HADOOP_HOME`环境变量是否设置正确:
+否则需要设置并`export HADOOP_HOME`环境变量:
 
 ```bash
 export HADOOP_HOME=${HADOOP_HOME:-/opt/hadoop}
 echo $HADOOP_HOME
 ```
+### 3. nutch配置
+在编译之前首先需要配置nutch，***每次更新配置文件，都需要重新编译！***
+配置文件位于`$NUTCH_HOME/conf`下，务必设置`http.agent.name`,否则编译后不能运行, 编辑`conf/nutch-site.xml`, 内容为:
+```xml
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
-然后运行`ant -v runtime`, 构建开始，大约需要30分钟的时间
+<!-- Put site-specific property overrides in this file. -->
 
-## 3. 集成solr
+<configuration>
+	<property>
+		<name>http.agent.name</name>
+		<value>My Spider</value>
+	</property>
+</configuration>
+```
+
+如果需要设置nutch运行时代理，需要配置代理,修改文件`$NUTCH_HOME/conf/nutch-default.xml`, 修改`http.proxyHost`和`http.proxyPort`值，内容如下:
+```xml
+<property>
+  <name>http.proxy.host</name>
+  <value>proxy01.cd.intel.com</value>
+  <description>The proxy hostname.  If empty, no proxy is used.</description>
+</property>
+
+<property>
+  <name>http.proxy.port</name>
+  <value>911</value>
+  <description>The proxy port.</description>
+</property>
+```
+
+### 4.编译构建nutch
+<font color='red'>在此之前，请确保以上步骤已经正确完成，否则会导致编译失败或者运行失败！</font>
+编译:
+```bash
+ant -v runtime
+```
+构建开始，大约需要30分钟的时间
+## 二、集成solr
 
 目前solr的版本是5.x,但好像5.x版本差别较大，nutch没有集成支持！因此我们使用当前的4.x版本，目前该版本的latest是4.10.4,点击[此处下载](http://www.carfab.com/apachesoftware/lucene/solr/4.10.4/solr-4.10.4.tgz).
 
@@ -111,22 +149,13 @@ java -jar start.jar
 ```
 然后点击蓝色按钮`Analyse Values`,查看效果，看是否正确分词！
 
-## 4. 本地单机运行
+## 三、单机运行测试
 
 具体过程可以查看[官方教程](https://wiki.apache.org/nutch/NutchTutorial) 。
 
 总结过程如下:
 
-###  1. Customize your crawl properties
-修改`conf/nutch-default.xml`,可以配置一些属性，其中`http.agent.name`必须设置，否则无法运行:
-
-```xml
-<property>
- <name>http.agent.name</name>
- <value>My Nutch Spider</value>
-</property>
-```
-### 2. 创建种子列表
+### 1. 创建种子列表
 ```sh
 mkdir urls
 cd urls
@@ -134,52 +163,19 @@ touch seeds.txt
 echo "http://nutch.apache.org/" >> seeds.txt # 每行一个URL
 ```
 
-### 3.使用`crawl`脚本运行
+### 2.使用`crawl`脚本运行
 
 ```sh
 bin/crawl -i -D solr.server.url=http://localhost:8983/solr/nutch urls/ TestCrawl/  2
 ```
 
-## 5. 验证结果
+### 3. 验证结果
 
 打开[http://localhost:8983/solr/](http://localhost:8983/solr/)，点击`solr admin`, 在`Querty String`输入`nutch`, 点击`Search`查看效果
 
-## 5.分布式运行
+## 四、分布式运行
 
-### 1. 设置环境
-首先必须保证`HADOOP_HOME`环境变量设置正确,在编译前务必运行以下命令确认:
-```sh
-export | grep HADOOP_HOME
-```
-输出
-```
-declare -x HADOOP_HOME="/opt/hadoop"
-```
-其次需要设置`NUTCH_HOME`，值为nutch根目录
-
-### 2. 修改配置文件
-配置文件位于`$NUTCH_HOME/conf`下，务必设置`http.agent.name`,否则编译后不能运行, 编辑`conf/nutch-site.xml`, 内容为:
-```xml
-<?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-
-<!-- Put site-specific property overrides in this file. -->
-
-<configuration>
-	<property>
-		<name>http.agent.name</name>
-		<value>My Spider</value>
-	</property>
-</configuration>
-```
-### 3.编译
-运行:
-```sh
-ant -v runtime
-```
-
-### 4.运行
-首先创建`urls`目录作为种子url，然后上传到hdfs上:
+与单机过程类型，首先创建`urls`目录作为种子url，然后上传到hdfs上:
 ```sh
 mkdir urls
 cd urls
@@ -193,4 +189,5 @@ hdfs dfs -put urls
 cd $NUTCH_HOME/runtime/runtime/deploy/
 bin/crawl -i -D solr.server.url=http://localhost:8983/solr/nutch urls/ TestCrawl/  2
 ```
+
 
