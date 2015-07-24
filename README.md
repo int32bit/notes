@@ -25,3 +25,4 @@
 3. [设置sbt代理](hadoop/设置sbt代理.md)
 4. [spark-streaming读取flume](hadoop/spark-streaming读取flume.md)
 5. [nutch集成solr和中文分词](hadoop/nutch集成solr和中文分词.md)
+6. [sqoop2安装](hadoop/sqoop2安装.md)
