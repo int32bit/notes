@@ -78,3 +78,18 @@ Caused by: java.sql.SQLException: No suitable driver found for
 ```
 
 解决办法为[下载derby](http://db.apache.org/derby/derby_downloads.html)最新版本，先删除`/sqoop-1.99.6-bin-hadoop200/server/webapps/sqoop/WEB-INF/lib`下的derby旧包，然后把新下载的derby目录下的lib下的jar包拷贝到`/sqoop-1.99.6-bin-hadoop200/server/webapps/sqoop/WEB-INF/lib`
+
+## 5. 验证
+
+运行bin/sqoop2-shell,进入sqoop shell模式, 运行`show version --all`，若能正确输出server版本，则安装成功:
+```
+sqoop:000> show version --all
+client version:
+  Sqoop 1.99.6 source revision 07244c3915975f26f03d9e1edf09ab7d06619bb8
+  Compiled by root on Wed Apr 29 10:40:43 CST 2015
+server version:
+  Sqoop 1.99.6 source revision 07244c3915975f26f03d9e1edf09ab7d06619bb8
+  Compiled by root on Wed Apr 29 10:40:43 CST 2015
+API versions:
+  [v1]
+```
