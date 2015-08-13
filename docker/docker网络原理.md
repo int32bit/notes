@@ -57,7 +57,7 @@ docker exec d344e6e05a99 ping 10.0.0.2 # 成功ping通
 ```bash
 sudo brctl addbr br0 # 创建新网桥br0
 sudo brctl addif br0 veth_d344 # 把虚拟网卡加入网桥br0中
-sudo ifconfig br0 10.0.0.1/24 # 设置网桥名称
+sudo ifconfig br0 10.0.0.1/24 # 设置网桥ip
 sudo ip link set veth_d344 up # 启动虚拟网卡
 ```
 测试下:
