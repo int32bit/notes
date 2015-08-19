@@ -11,8 +11,8 @@
 * 强制使用系统代理,即 ant -autoproxy , 结果失败!
 * 修改 build.xml , 增加 setproxy ,设置代理,结果失败!
 * 设置 ANT_OPTS ,添加选项
-* -Dhttp.proxyHost=http://proxy01.cd.intel.com
-* -Dhttp.proxyPort=911 , 结果失败!
+* -Dhttp.proxyHost=http://proxy.xxx.com
+* -Dhttp.proxyPort=xxx , 结果失败!
 * 传递 http_proxy ,结果失败!
 
 失败原因: <font color="red">`proxyHost`只需要包括主机名，而不需要指定协议</font>
@@ -21,7 +21,7 @@
 
 ```xml
 <target name="myproxy">
-	  <setproxy proxyhost="child-prc.intel.com" proxyport="913" />
+	  <setproxy proxyhost="proxy.xxx.com" proxyport="913" />
 </target>
 ```
 
@@ -63,13 +63,13 @@ echo $HADOOP_HOME
 ```xml
 <property>
   <name>http.proxy.host</name>
-  <value>proxy01.cd.intel.com</value>
+  <value>proxy.xxx.com</value>
   <description>The proxy hostname.  If empty, no proxy is used.</description>
 </property>
 
 <property>
   <name>http.proxy.port</name>
-  <value>911</value>
+  <value>xxx</value>
   <description>The proxy port.</description>
 </property>
 ```
