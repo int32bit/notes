@@ -13,6 +13,7 @@
 9. [使用moderncv创建个人简历](/linux/使用moderncv创建个人简历.md)
 10. [shell碎片](/linux/scriptnote.md)
 11. [ubuntu14.04安装jekyll](linux/HowToInstallJekyll.md)
+12. [nc命令实例](linux/nc命令实例.md)
 
 ## C语言
 
