@@ -3,9 +3,9 @@
 sbt默认并不读取环境变量`http_proxy`,而是使用java系统属性(property), 我们使用`SBT_OPTS`
 进行设置，具体如下:
 ```bash
-SBT_OPTS="$SBT_OPTS -Dhttp.proxyHost=proxyhk.huawei.com\
- -Dhttp.proxyPort=8080\
- -Dhttp.proxyUser=CHINA\\hWX275716 -Dhttp.proxyPassword=password"
+SBT_OPTS="$SBT_OPTS -Dhttp.proxyHost=proxy.xxx.com\
+ -Dhttp.proxyPort=xxx\
+ -Dhttp.proxyUser=username -Dhttp.proxyPassword=password"
 ```
 需要注意一下几点:
 * `http_proxyHost`**只需要设置代理主机名，不需要协议名**，不能在前面有`http://`或者`https://`
@@ -15,9 +15,9 @@ SBT_OPTS="$SBT_OPTS -Dhttp.proxyHost=proxyhk.huawei.com\
 `SBT_OPTS`需要export，务必保证sbt能够读取到，为了简易，可以直接编辑`bin/sbt`文件，在开头
 加上:
 ```sh
-export SBT_OPTS="$SBT_OPTS -Dhttp.proxyHost=proxyhk.huawei.com\
- -Dhttp.proxyPort=8080\
- -Dhttp.proxyUser=CHINA\\hWX275716 -Dhttp.proxyPassword=password"
+export SBT_OPTS="$SBT_OPTS -Dhttp.proxyHost=proxy.xxx.com\
+ -Dhttp.proxyPort=xxx\
+ -Dhttp.proxyUser=CHINA\\username -Dhttp.proxyPassword=password"
 ```
 
 验证是否成功:
@@ -31,9 +31,9 @@ sbt -v # 使用-v参数，输出系统变量
 [process_args] java_version = '1.7.0_55'
 # Executing command line:
 java
--Dhttp.proxyHost=proxyhk.huawei.com
--Dhttp.proxyPort=8080
--Dhttp.proxyUser=CHINA\hWX275716
+-Dhttp.proxyHost=proxy.xxx.com
+-Dhttp.proxyPort=xxx
+-Dhttp.proxyUser=CHINA\username
 -Dhttp.proxyPassword=password
 -Xms1024m
 -Xmx1024m
