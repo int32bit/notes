@@ -1,0 +1,22 @@
+# Maintainer: 謝致邦 <Yeking@Red54.com>
+
+pkgname=aliwangwang
+pkgver=1.03.00
+pkgrel=7
+pkgdesc="AliWangWang for Linux"
+arch=('i686' 'x86_64')
+url="http://www.taobao.com/wangwang"
+license=('Commercial')
+depends=('qt4' 'qtwebkit' 'openssl' 'zlib' 'kdelibs' 'qjson' 'libnotify' 'libx11')
+if [ "$CARCH" = "i686" ]; then
+    source=("aliwangwang_1.03.00-7_i386.deb")
+    md5sums=('8da2c5d2cfa9e37a0d681a93f9bab53b')
+elif [ "$CARCH" = "x86_64" ]; then
+    source=("aliwangwang_1.03.00-7_amd64.deb")
+    md5sums=('79ce6a16141e3a73cd7925792bf86f5e')
+fi
+
+package() {
+    cd $pkgdir
+    tar xf $srcdir/data.tar.gz
+}
