@@ -32,3 +32,7 @@
 
 1. [docker网络原理](docker/docker网络原理.md)
 2. [docker安装和使用](docker/docker安装和使用.md)
+
+## kafka
+
+1. [kafka集群配置总结](kafka/kafka集群配置总结.md)
