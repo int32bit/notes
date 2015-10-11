@@ -14,6 +14,7 @@
 10. [shell碎片](/linux/scriptnote.md)
 11. [ubuntu14.04安装jekyll](linux/HowToInstallJekyll.md)
 12. [nc命令实例](linux/nc命令实例.md)
+13. [修改sbt和maven镜像源](linux/修改sbt和maven镜像源.md)
 
 ## C语言
 
