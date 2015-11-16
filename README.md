@@ -15,6 +15,7 @@
 11. [ubuntu14.04安装jekyll](linux/HowToInstallJekyll.md)
 12. [nc命令实例](linux/nc命令实例.md)
 13. [修改sbt和maven镜像源](linux/修改sbt和maven镜像源.md)
+14. [减少qcow文件大小](linux/减少qcow文件大小.md)
 
 ## C语言
 
