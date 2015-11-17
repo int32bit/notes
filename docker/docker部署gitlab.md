@@ -22,7 +22,7 @@ docker run -d \
 
 ## 3. 配置gitlab实例
 
-主要是需要配置邮箱:
+### 3.1 配置邮箱:
 
 ```bash
 docker exec -t -i gitlab vim /etc/gitlab/gitlab.rb
@@ -45,6 +45,18 @@ user["git_user_email"] = "xxxx@163.com"
 ```
 
 注意以上的`xxxx@163.com`代表用户名，即邮箱地址，而`xxxxpassword`不是邮箱的登陆密码而是网易邮箱的**客户端授权密码**, 再网易邮箱web页面的`设置-POP3/SMTP/IMAP-客户端授权密码`查看。
+
+### 3.2 配置外部访问URL
+
+这个必须配置，否则默认以容器的主机名作为URL，刚开始由于做了端口映射`80->8080`, 因此设置为
+```
+external_url "http://10.103.240.36:8080"
+```
+后来发现**`external_url`只能配置ip或者域名，不能有端口，否则不能启动**。
+于是只能把端口设置为`80->80`，然后`external_url`设置为:
+```
+external_url "http://10.103.240.36"
+```
 
 ## 4. 重启gitlab
 
