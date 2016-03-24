@@ -38,6 +38,7 @@
 * 创建和启动快，不需要启动GuestOS，应用启动开销基本就是应用本身启动的时间开销。
 * 无GuestOS，无hypervisor，无额外资源开销，资源控制粒度更小，部署密度大。
 * 使用的是真实物理资源，因此不存在性能损耗。
+* 轻量级
 * ...
 
 但如何实现资源隔离和控制呢？
@@ -98,7 +99,125 @@ cat memory.limit_in_bytes
 ```
 即最大的可使用的内存为4MB，正好是我们启动Docker所设定的。
 
-由以上可知，容器实现了资源的隔离性以及控制性。
+由以上可知，容器实现了资源的隔离性以及控制性。容器的具体实现如LXC、LXD等。
 
 ## Docker技术
 
+Docker是PaaS提供商dotCloud开源的一个基于LXC的高级容器引擎，简单说Docker提供了一个能够方便管理容器的工具。使用Docker能够：
+
+* 快速构建基于容器的分布式应用
+* 具有容器的所有优点
+* 提供原生的资源监控
+* ...
+
+Docker与虚拟机原理对比：
+![Docker与虚拟机原理对比](static/img/docker-and-vm.jpg)
+
+由于容器技术很早就有，Docker最核心的创新在于它的镜像管理，因此有人说：
+
+```
+Docker = 容器 + Docker镜像
+```
+Docker镜像的创新之处在于使用了类似层次的文件系统AUFS，简单说就是一个镜像是由多个镜像层层叠加的，从一个base镜像中通过加入一些软件构成一个新层的镜像，依次构成最后的镜像，如图 
+![Docker镜像分层](static/img/docker-filesystems-multilayer.png)
+
+[知乎：docker的几点疑问](https://www.zhihu.com/question/25394149/answer/30671258):
+
+> Image的分层，可以想象成photoshop中不同的layer。每一层中包含特定的文件，当container运行时，这些叠加在一起的层就构成了container的运行环境（包括相应的文件，运行库等，不包括内核）。Image通过依赖的关系，来确定整个镜像内到底包含那些文件。之后的版本的docker，会推出squash的功能，把不同的层压缩成为一个，和Photoshop中合并层的感觉差不多。
+作者：Honglin Feng
+链接：https://www.zhihu.com/question/25394149/answer/30671258
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+>
+
+这样的好处是：
+
+* 节省存储空间 - 多个镜像共享base image存储
+* 节省网络带宽 - 拉取镜像时，只需要拉取本地没有的镜像层，本地已经存在的可以共享，避免多次传输拷贝
+* 节省内存空间 - 多个实例可共享base image, 多个实例的进程命中缓存内容的几率大大增加。如果基于某个镜像启动一个虚拟机需要资源k，则启动n个同一个镜像的虚拟机需要占用资源kn，但如果基于某个镜像启动一个Docker容器需要资源k，无论启动多少个实例，资源都是k。
+* 维护升级方便 - 相比于 copy-on-write 类型的FS，base-image也是可以挂载为可writeable的，可以通过更新base image而一次性更新其之上的container
+* 允许在不更改base-image的同时修改其目录中的文件 - 所有写操作都发生在最上层的writeable层中，这样可以大大增加base image能共享的文件内容。
+
+使用容器技术，带来了很多优点，但同时也存在一些问题：
+
+* 隔离性相对虚拟机弱-由于和宿主机共享内核，带来很大的安全隐患，容易发生逃逸。
+* 如果某些应用需要特定的内核特性，使用容器不得不更换宿主机内核。
+* ...
+
+更多关于AUFS参考[酷壳:Docker基础技术-AUFS](http://coolshell.cn/articles/17061.html)
+## Hyper
+
+上文提到容器也存在问题，并且Docker的核心创新在于镜像管理，即：
+
+```
+Docker = 容器 + Docker镜像
+```
+有人提出把容器替换成最初的hypervisor，即接下来介绍的Hyper，[官方](https://hyper.sh/)定义：
+
+```
+Hyper - a Hypervisor-based Containerization solution
+```
+即
+
+```
+Hyper = Hypervisor + Docker镜像
+```
+
+Hyper是一个基于虚拟化技术（hypervisor）的Docker引擎。[官方](http://mt.sohu.com/20150625/n415640410.shtml)认为
+>虽然Hyper同样通过VM来运行Docker应用，但HyperVM里并没有GuestOS，相反的，一个HyperVM内部只有一个极简的HyperKernel，以及要运行的Docker镜像。这种Kernel+Image的"固态"组合使得HyperVM和Docker容器一样，实现了Immutable Infrastructure的效果。借助VM天然的隔离性，Hyper能够完全避免LXC共享内核的安全隐患.
+
+创建一个基于Hyper的ubuntu：
+
+```bash
+sudo hyper run -t ubuntu:latest bash
+```
+创建时间小于1秒，确实达到启动容器的效率。
+查看内核版本：
+
+```
+root@ubuntu-latest-7939453236:/# uname -a
+Linux ubuntu-latest-7939453236 4.4.0-hyper+ #0 SMP Mon Jan 25 01:10:46 CST 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+宿主机内核版本：
+
+```
+$ uname  -a
+Linux lenovo 3.13.0-77-generic #121-Ubuntu SMP Wed Jan 20 10:50:42 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
+启动基于Docker的ubuntu并查看内核版本:
+
+```
+$ docker run -t -i ubuntu:14.04 uname -a
+Linux 73a88ca16d94 3.13.0-77-generic #121-Ubuntu SMP Wed Jan 20 10:50:42 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
+我们发现Docker和宿主机的内核版本是一样的，即`3.13.0-77-generic`,而Hyper内核不一样，版本为`4.4.0-hyper`。
+
+以下为[官方数据](https://github.com/hyperhq/hyper)：
+
+**Hyper combines the best from both world: VM and Container**.
+
+| -  | Container | VM | Hyper | 
+|---|---|---|---|
+| Isolation | Weak, shared kernel | Strong, HW-enforced  | Strong, HW-enforced  |
+| Portable  | Yes, but kernel dependent sometimes | No, hypervisor dependent | Yes, hypervisor agnostic and portable image |
+| Boot  | Fast, sub-second  | Slow, tens of seconds  | Fast, sub-second  |
+| Performance  | Great | OK| Good, minimal resource footprint and overhead |
+| Immutable | Yes  | No, configuration management required | Yes, only kernel+image  | 
+| Image Size| Small, MBs  | Big, GBs  | Small, MBs  |
+| Compatibility | No, need new tools | Great, everything just works  | Good, it is still a "Machine", much less changes  |
+| Mature   | Not yet  | Production ready, SDN, SDS, LiveMigration, etc.  | Yes, just plug-&-play|
+| ROI| Rebuild everything with container  | - | Reuse your virtual infrastructure  
+
+Hyper确实是容器和虚拟机的一种很好的折衷技术，未来可能前景广大，但需要进一步观察，我个人主要存在以下疑问：
+
+* 使用极简的内核，会不会导致某些功能丢失？
+* 是不是需要为每一个应用维护一个微内核?
+* 有些应用需要特定内核，这些应用实际多么？可以通过其他方式避免么？
+* Hyper引擎能否提供和Docker引擎一样的api，能否在生态圈中相互替代?
+* 隔离性加强的同时也牺牲了部分性能，这如何权衡？
+
+## 总结
+
+本文首先介绍了操作系统，然后引出容器技术以及虚拟机技术，最后介绍了Docker和Hyper技术。通过本文可以清楚地对三者有了感性认识。
+近年来容器技术以及微服务架构非常火热，CaaS有取代传统IaaS的势头，未来云计算市场谁成为主流值得期待。
