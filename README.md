@@ -36,6 +36,7 @@
 2. [docker安装和使用](docker/docker安装和使用.md)
 3. [使用Docker部署Gitlab](docker/docker部署gitlab.md)
 4. [使用docker创建数据容器](docker/使用docker创建数据容器.md)
+5. [虚拟机、Docker和Hyper技术](docker/虚拟机、Docker和Hyper.md)
 
 ## kafka
 
