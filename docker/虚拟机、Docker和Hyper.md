@@ -111,6 +111,7 @@ Docker是PaaS提供商dotCloud开源的一个基于LXC的高级容器引擎，�
 * ...
 
 Docker与虚拟机原理对比：
+
 ![Docker与虚拟机原理对比](static/img/docker-and-vm.jpg)
 
 由于容器技术很早就有，Docker最核心的创新在于它的镜像管理，因此有人说：
@@ -119,6 +120,7 @@ Docker与虚拟机原理对比：
 Docker = 容器 + Docker镜像
 ```
 Docker镜像的创新之处在于使用了类似层次的文件系统AUFS，简单说就是一个镜像是由多个镜像层层叠加的，从一个base镜像中通过加入一些软件构成一个新层的镜像，依次构成最后的镜像，如图 
+
 ![Docker镜像分层](static/img/docker-filesystems-multilayer.png)
 
 [知乎：docker的几点疑问](https://www.zhihu.com/question/25394149/answer/30671258):
