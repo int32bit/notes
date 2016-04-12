@@ -16,6 +16,7 @@
 12. [nc命令实例](linux/nc命令实例.md)
 13. [修改sbt和maven镜像源](linux/修改sbt和maven镜像源.md)
 14. [减少qcow文件大小](linux/减少qcow文件大小.md)
+15. [设置ssh连接会话复用](linux/设置ssh连接会话复用.md)
 
 ## C语言
 
