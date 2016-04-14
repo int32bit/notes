@@ -18,6 +18,7 @@
 14. [减少qcow文件大小](linux/减少qcow文件大小.md)
 15. [设置ssh连接会话复用](linux/设置ssh连接会话复用.md)
 16. [使用并行ssh提高工作效率](linux/使用并行ssh提高工作效率.md)
+17. [ubuntu ceph安装以及使用](linux/ubuntu ceph安装以及使用.md)
 
 ## C语言
 
