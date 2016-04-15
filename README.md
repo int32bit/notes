@@ -1,6 +1,6 @@
 # 目录
 
-## Linux
+## Linux(关于命令行工具、Devops、高可用等）
 
 1. [ubuntu安装Nvidia驱动](/linux/安装nvidia驱动.md)
 2. [ubuntu终端显示中文乱码](/linux/ubuntu终端显示中文乱码.md)
@@ -21,11 +21,11 @@
 17. [ubuntu ceph安装以及使用](linux/ubuntu ceph安装以及使用.md)
 18. [使用ansible远程执行命令](linux/使用ansible远程执行命令.md)
 
-## C语言
+## 算法
 
-1. [swap函数陷阱](/c/swap函数陷阱.md)
+1. [swap函数陷阱](/algorithm/swap函数陷阱.md)
 
-## hadoop
+## Hadoop & Spark(关于大数据、Hadoop、Spark等）
 
 1. [hive单机安装](/hadoop/hive单机安装.md)
 2. [构建hadoop2.5.2环境下的spark1.1.1](/hadoop/构建hadoop2.5.2环境下的spark1.1.1.md)
@@ -33,15 +33,14 @@
 4. [spark-streaming读取flume](hadoop/spark-streaming读取flume.md)
 5. [nutch集成solr和中文分词](hadoop/nutch集成solr和中文分词.md)
 6. [sqoop2安装](hadoop/sqoop2安装.md)
+7. [kafka集群配置总结](hadoop/kafka集群配置总结.md)
 
-## docker
 
-1. [docker网络原理](docker/docker网络原理.md)
-2. [docker安装和使用](docker/docker安装和使用.md)
-3. [使用Docker部署Gitlab](docker/docker部署gitlab.md)
-4. [使用docker创建数据容器](docker/使用docker创建数据容器.md)
-5. [虚拟机、Docker和Hyper技术](docker/虚拟机、Docker和Hyper.md)
+## 云计算（关于Docker技术、Openstack、Mesos等技术）
 
-## kafka
-
-1. [kafka集群配置总结](kafka/kafka集群配置总结.md)
+1. [docker网络原理](cloud/docker网络原理.md)
+2. [docker安装和使用](cloud/docker安装和使用.md)
+3. [使用Docker部署Gitlab](cloud/docker部署gitlab.md)
+4. [使用docker创建数据容器](cloud/使用docker创建数据容器.md)
+5. [虚拟机、Docker和Hyper技术](cloud/虚拟机、Docker和Hyper.md)
+6. [Openstack Sahara组件和架构简介](cloud/Openstack Sahara组件和架构简介.md)
