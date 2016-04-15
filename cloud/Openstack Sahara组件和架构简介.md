@@ -65,7 +65,7 @@ sahara支持从Swift对象存储读取数据和保存结果数据，集成文档
 
 ## 6.架构
 sahara架构如图所示：
-![sahara架构图](sahara-architecture.svg)
+![sahara架构图](sahara-architecture.png)
 
 主要包括以下几个组件：
 
