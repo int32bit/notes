@@ -16,6 +16,11 @@ ubuntu14.04直接使用`apt-get`安装：
 ```bash
 sudo apt-get install -y ansible
 ```
+也可以使用pip命令安装：
+
+```bash
+sudo pip install ansible
+```
 
 为了支持输入远程主机用户密码，还需要安装`sshpass`工具：
 
@@ -37,7 +42,7 @@ ceph-3
 
 ```cfg
 [defaults]
-hostfile=/home/fgp/hosts.txt
+hostfile=~/.hosts
 ```
 
 ## 3.使用ansible
