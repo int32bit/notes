@@ -44,3 +44,6 @@
 4. [使用docker创建数据容器](cloud/使用docker创建数据容器.md)
 5. [虚拟机、Docker和Hyper技术](cloud/虚拟机、Docker和Hyper.md)
 6. [Openstack Sahara组件和架构简介](cloud/Openstack Sahara组件和架构简介.md)
+
+
+**更多文章，请参考[我的博客](http://int32bit.github.io)!**
